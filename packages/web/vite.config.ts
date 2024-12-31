@@ -70,6 +70,23 @@ export default defineConfig({
 							]
 						},
 						{
+							title: 'harper.js',
+							items: [
+								{
+									title: 'Introduction',
+									to: '/docs/harperjs/introduction'
+								},
+								{
+									title: 'Linting',
+									to: '/docs/harperjs/linting'
+								},
+								{
+									title: 'CDN',
+									to: '/docs/harperjs/CDN'
+								}
+							]
+						},
+						{
 							title: 'Contributors',
 							items: [
 								{

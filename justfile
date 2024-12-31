@@ -29,6 +29,11 @@ test-harperjs:
   yarn playwright install
   yarn test
 
+  # Test runnable examples
+  cd "{{justfile_directory()}}/packages/harper.js/examples/commonjs-simple"
+  yarn install
+  yarn start
+
 # Compile the website's dependencies and start a development server. Note that if you make changes to `harper-wasm`, you will have to re-run this command.
 dev-web:
   #! /bin/bash
@@ -56,7 +61,7 @@ build-obsidian:
   #! /bin/bash
   set -eo pipefail
   
-  just build-wasm web
+  just build-harperjs
   cd "{{justfile_directory()}}/packages/obsidian-plugin"
 
   yarn install -f
@@ -153,7 +158,6 @@ setup:
   just build-harperjs
   just build-obsidian
   just test-vscode
-  just build-harperjs
   just test-harperjs
   just build-web
 
@@ -234,3 +238,20 @@ userdictoverlap:
   while read -r line; do
     just searchdictfor $line 2> /dev/null
   done < $USER_DICT_FILE
+
+bump-versions:
+  #! /bin/bash
+  set -eo pipefail
+
+  cargo ws version --no-git-push --no-git-tag
+
+  HARPER_VERSION=$(tq --file harper-core/Cargo.toml .package.version)
+
+  cd "{{justfile_directory()}}/packages/harper.js"
+
+  cat package.json | jq ".version = \"$HARPER_VERSION\"" > package.json.edited
+  mv package.json.edited package.json
+
+  just format
+
+  lazygit
