@@ -130,6 +130,10 @@ impl TokenKind {
         matches!(self, TokenKind::Punctuation(Punctuation::Ellipsis))
     }
 
+    pub fn is_hyphen(&self) -> bool {
+        matches!(self, TokenKind::Punctuation(Punctuation::Hyphen))
+    }
+
     pub fn is_adjective(&self) -> bool {
         matches!(
             self,
@@ -313,6 +317,22 @@ impl TokenKind {
         };
 
         metadata.is_linking_verb()
+    }
+
+    pub fn is_not_plural_noun(&self) -> bool {
+        let TokenKind::Word(metadata) = self else {
+            return true;
+        };
+
+        metadata.is_not_plural_noun()
+    }
+
+    pub fn is_plural_noun(&self) -> bool {
+        let TokenKind::Word(metadata) = self else {
+            return false;
+        };
+
+        metadata.is_plural_noun()
     }
 
     pub fn is_noun(&self) -> bool {

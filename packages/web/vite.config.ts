@@ -81,6 +81,10 @@ export default defineConfig({
 									to: '/docs/harperjs/linting'
 								},
 								{
+									title: 'Node.js',
+									to: '/docs/harperjs/node'
+								},
+								{
 									title: 'CDN',
 									to: '/docs/harperjs/CDN'
 								}
@@ -104,6 +108,10 @@ export default defineConfig({
 								{
 									title: 'Architecture',
 									to: '/docs/contributors/architecture'
+								},
+								{
+									title: 'Dictionary',
+									to: '/docs/contributors/dictionary'
 								}
 							]
 						},

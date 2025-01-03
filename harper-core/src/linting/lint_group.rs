@@ -5,6 +5,7 @@ use super::an_a::AnA;
 use super::avoid_curses::AvoidCurses;
 use super::boring_words::BoringWords;
 use super::capitalize_personal_pronouns::CapitalizePersonalPronouns;
+use super::compound_words::CompoundWords;
 use super::correct_number_suffix::CorrectNumberSuffix;
 use super::dot_initialisms::DotInitialisms;
 use super::ellipsis_length::EllipsisLength;
@@ -13,9 +14,10 @@ use super::long_sentences::LongSentences;
 use super::matcher::Matcher;
 use super::multiple_sequential_pronouns::MultipleSequentialPronouns;
 use super::number_suffix_capitalization::NumberSuffixCapitalization;
+use super::plural_conjugate::PluralConjugate;
 use super::proper_noun_capitalization_linters::{
     AmazonNames, Americas, AppleNames, AzureNames, ChineseCommunistParty, GoogleNames, Holidays,
-    MetaNames, MicrosoftNames, UnitedOrganizations,
+    Koreas, MetaNames, MicrosoftNames, UnitedOrganizations,
 };
 use super::repeated_words::RepeatedWords;
 use super::sentence_capitalization::SentenceCapitalization;
@@ -162,6 +164,7 @@ create_lint_group_config!(
     ThatWhich => true,
     CapitalizePersonalPronouns => true,
     Americas => true,
+    Koreas => true,
     ChineseCommunistParty => true,
     UnitedOrganizations => true,
     Holidays => true,
@@ -170,7 +173,9 @@ create_lint_group_config!(
     MetaNames => true,
     MicrosoftNames => true,
     AppleNames => true,
-    AzureNames => true
+    AzureNames => true,
+    CompoundWords => true,
+    PluralConjugate => true
 );
 
 impl<T: Dictionary + Default> Default for LintGroup<T> {
