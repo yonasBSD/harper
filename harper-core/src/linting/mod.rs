@@ -83,6 +83,17 @@ mod tests {
         assert_eq!(lints.len(), count);
     }
 
+    /// Assert the total number of suggestions produced by a [`Linter`], spread across all produced
+    /// [`Lint`]s.
+    pub fn assert_suggestion_count(text: &str, mut linter: impl Linter, count: usize) {
+        let test = Document::new_markdown_curated(text);
+        let lints = linter.lint(&test);
+        assert_eq!(
+            lints.iter().map(|l| l.suggestions.len()).sum::<usize>(),
+            count
+        );
+    }
+
     /// Runs a provided linter on text, applies the first suggestion from each
     /// lint and asserts that the result is equal to a given value.
     pub fn assert_suggestion_result(text: &str, mut linter: impl Linter, expected_result: &str) {
