@@ -5,6 +5,7 @@ use super::an_a::AnA;
 use super::avoid_curses::AvoidCurses;
 use super::boring_words::BoringWords;
 use super::capitalize_personal_pronouns::CapitalizePersonalPronouns;
+use super::closed_compounds::Furthermore;
 use super::closed_compounds::Overnight;
 use super::closed_compounds::{
     Anybody, Anyhow, Anywhere, Backplane, Devops, Everywhere, Henceforth, However, Insofar,
@@ -37,8 +38,8 @@ use super::plural_conjugate::PluralConjugate;
 use super::possessive_your::PossessiveYour;
 use super::pronoun_contraction::PronounContraction;
 use super::proper_noun_capitalization_linters::{
-    AmazonNames, Americas, AppleNames, AzureNames, ChineseCommunistParty, GoogleNames, Holidays,
-    Koreas, MetaNames, MicrosoftNames, UnitedOrganizations,
+    AmazonNames, Americas, AppleNames, Australia, AzureNames, ChineseCommunistParty, GoogleNames,
+    Holidays, Koreas, Malaysia, MetaNames, MicrosoftNames, UnitedOrganizations,
 };
 use super::repeated_words::RepeatedWords;
 use super::sentence_capitalization::SentenceCapitalization;
@@ -174,6 +175,7 @@ macro_rules! create_lint_group_config {
 }
 
 create_lint_group_config!(
+    Furthermore => true,
     Overnight => true,
     Hereby => true,
     Likewise => true,
@@ -221,7 +223,7 @@ create_lint_group_config!(
     Myself => true,
     Itself => true,
     Whereas => true,
-    PossessiveYour => true,
+    PossessiveYour => false,
     SpelledNumbers => false,
     AnA => true,
     SentenceCapitalization => true,
@@ -244,7 +246,9 @@ create_lint_group_config!(
     ThatWhich => true,
     CapitalizePersonalPronouns => true,
     Americas => true,
+    Australia => true,
     Koreas => true,
+    Malaysia => true,
     ChineseCommunistParty => true,
     UnitedOrganizations => true,
     Holidays => true,
@@ -293,13 +297,13 @@ impl<T: Dictionary + Default> Default for LintGroup<T> {
 
 #[cfg(test)]
 mod tests {
-    use crate::{linting::Linter, Document, FstDictionary, FullDictionary};
+    use crate::{linting::Linter, Document, FstDictionary, MutableDictionary};
 
     use super::{LintGroup, LintGroupConfig};
 
     #[test]
     fn can_get_all_descriptions() {
-        let group = LintGroup::<FullDictionary>::default();
+        let group = LintGroup::<MutableDictionary>::default();
         group.all_descriptions();
     }
 

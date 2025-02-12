@@ -54,6 +54,7 @@ pub use an_a::AnA;
 pub use avoid_curses::AvoidCurses;
 pub use boring_words::BoringWords;
 pub use capitalize_personal_pronouns::CapitalizePersonalPronouns;
+pub use closed_compounds::Furthermore;
 pub use closed_compounds::Overnight;
 pub use closed_compounds::{
     Anybody, Anyhow, Anywhere, Backplane, Devops, Everywhere, Henceforth, However, Insofar,
@@ -93,8 +94,8 @@ pub use plural_conjugate::PluralConjugate;
 pub use possessive_your::PossessiveYour;
 pub use pronoun_contraction::PronounContraction;
 pub use proper_noun_capitalization_linters::{
-    AmazonNames, Americas, AppleNames, AzureNames, ChineseCommunistParty, GoogleNames, Holidays,
-    Koreas, MetaNames, MicrosoftNames, UnitedOrganizations,
+    AmazonNames, Americas, AppleNames, Australia, AzureNames, ChineseCommunistParty, GoogleNames,
+    Holidays, Koreas, Malaysia, MetaNames, MicrosoftNames, UnitedOrganizations,
 };
 pub use repeated_words::RepeatedWords;
 pub use sentence_capitalization::SentenceCapitalization;
