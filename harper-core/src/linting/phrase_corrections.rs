@@ -923,6 +923,18 @@ pub fn lint_group() -> LintGroup {
             "Use `without` instead of `w/o`",
             "Expands the abbreviation `w/o` to the full word `without` for clarity."
         ),
+        "OnSecondThought" => (
+            ["on second though"],
+            ["on second thought"],
+            "Idiomatic expression: use `on second thought` instead of `on second though`",
+            "Replaces the nonstandard `on second though` with the common idiom `on second thought` to indicate reconsideration."
+        ),
+        "Excellent" => (
+            ["very good"],
+            ["excellent"],
+            "Vocabulary enhancement: use `excellent` instead of `very good`",
+            "Provides a stronger word choice by replacing `very good` with `excellent` for clarity and emphasis."
+        ),
         "WellKept" => (
             ["highly-kept", "highly kept"],
             // There may be other good alternatives such as closely-guarded or tightly-held
@@ -947,6 +959,30 @@ pub fn lint_group() -> LintGroup {
             ["trial and error"],
             "You misspelled `trial`.",
             "Corrects `trail` to `trial` in `trial and error`."
+        ),
+        "HomeInOn" => (
+            ["hone in on"],
+            ["home in on"],
+            "Use `home in on` rather than `hone in on`",
+            "Corrects `hone in on` to `home in on`."
+        ),
+        "HomesInOn" => (
+            ["hones in on"],
+            ["homes in on"],
+            "Use `home in on` rather than `hone in on`",
+            "Corrects `hone in on` to `home in on`."
+        ),
+        "HomedInOn" => (
+            ["honed in on"],
+            ["homed in on"],
+            "Use `home in on` rather than `hone in on`",
+            "Corrects `hone in on` to `home in on`."
+        ),
+        "HomingInOn" => (
+            ["honing in on"],
+            ["homing in on"],
+            "Use `home in on` rather than `hone in on`",
+            "Corrects `hone in on` to `home in on`."
         ),
     });
 
@@ -1782,6 +1818,24 @@ mod tests {
     }
 
     #[test]
+    fn on_second_thought_clean() {
+        assert_lint_count(
+            "She considered driving home, but on second thought, she decided to walk.",
+            lint_group(),
+            0,
+        );
+    }
+
+    #[test]
+    fn on_second_thought_incorrect() {
+        assert_suggestion_result(
+            "I was going to buy it, but on second though, maybe I'll wait.",
+            lint_group(),
+            "I was going to buy it, but on second thought, maybe I'll wait.",
+        );
+    }
+
+    #[test]
     fn correct_highly_kept_space() {
         assert_suggestion_result(
             "I assure you that frequency/angle dependence is a highly kept secret.",
@@ -1796,6 +1850,42 @@ mod tests {
             "Stick around cuz I got a surprise for you at the end.",
             lint_group(),
             "Stick around because I got a surprise for you at the end.",
+        );
+    }
+
+    #[test]
+    fn on_second_thought_no_false_positive() {
+        assert_lint_count(
+            "My second though is that I'd prefer something else entirely.",
+            lint_group(),
+            0,
+        );
+    }
+
+    #[test]
+    fn excellent_clean() {
+        assert_lint_count(
+            "The performance was excellent, drawing praise from all critics.",
+            lint_group(),
+            0,
+        );
+    }
+
+    #[test]
+    fn excellent_incorrect() {
+        assert_suggestion_result(
+            "Her results were very good this semester.",
+            lint_group(),
+            "Her results were excellent this semester.",
+        );
+    }
+
+    #[test]
+    fn excellent_no_false_positive() {
+        assert_lint_count(
+            "He radiated a sense of very goodness in his charitable acts.",
+            lint_group(),
+            0,
         );
     }
 
@@ -1823,6 +1913,42 @@ mod tests {
             "It was produced through trail and error.",
             lint_group(),
             "It was produced through trial and error.",
+        );
+    }
+
+    #[test]
+    fn correct_hone_in_on() {
+        assert_suggestion_result(
+            "This way you can use an object detector algorithm to hone in on subjects and tell sam to only focus in certain areas when looking to extend ...",
+            lint_group(),
+            "This way you can use an object detector algorithm to home in on subjects and tell sam to only focus in certain areas when looking to extend ...",
+        );
+    }
+
+    #[test]
+    fn correct_honing_in_on() {
+        assert_suggestion_result(
+            "I think I understand the syntax limitation you're honing in on.",
+            lint_group(),
+            "I think I understand the syntax limitation you're homing in on.",
+        );
+    }
+
+    #[test]
+    fn correct_hones_in_on() {
+        assert_suggestion_result(
+            "[FEATURE] Add a magnet that hones in on mobs",
+            lint_group(),
+            "[FEATURE] Add a magnet that homes in on mobs",
+        );
+    }
+
+    #[test]
+    fn correct_honed_in_on() {
+        assert_suggestion_result(
+            "But it took me quite a bit of faffing about checking things out before I honed in on the session as the problem and tried to dump out the ...",
+            lint_group(),
+            "But it took me quite a bit of faffing about checking things out before I homed in on the session as the problem and tried to dump out the ...",
         );
     }
 }
